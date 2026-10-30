@@ -20,6 +20,11 @@
             android:id="@+id/btnSendSMS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send SMS" />
+            android:text="@string/btn_send_sms_text" />
+        <Button
+            android:id="@+id/btnStartCall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btin_start_call_text" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

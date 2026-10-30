@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IntentTest</string>
+    <string name="btn_send_sms_text">Send SMS</string>
+    <string name="btin_start_call_text">Start Call</string>
 </resources>

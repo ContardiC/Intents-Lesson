@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     // IMPO: modificare AndroidManifest.xml
     Button btnSendSMS;
+    Button btnStarCall;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnSendSMS = findViewById(R.id.btnSendSMS);
-
+        btnStarCall = findViewById(R.id.btnStartCall);
+        // SEND SMS
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("MainActivity", "Action NON avviata");
                 }
 
+            }
+        });
+        // START CALL
+        // Aggiungere uses-permission e uses-feature
+        btnStarCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel: +39 324 1234567"));
+                if(intent.resolveActivity(getPackageManager()) != null){
+                    startActivity(intent);
+                }
             }
         });
     }
