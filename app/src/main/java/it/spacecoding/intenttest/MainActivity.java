@@ -1,6 +1,9 @@
 package it.spacecoding.intenttest;
 
+import static android.Manifest.permission.CALL_PHONE;
+
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -64,8 +68,25 @@ public class MainActivity extends AppCompatActivity {
                 intent.setData(Uri.parse("tel: +39 324 1234567"));
                 if(intent.resolveActivity(getPackageManager()) != null){
                     startActivity(intent);
+                }else{
+                    // TODO: gestire
                 }
+                //  Per chiamare direttamente
+//                Intent intent2 = new Intent(Intent.ACTION_CALL);
+//                intent2.setData(Uri.parse("tel: +39 324 1234567"));
+//                if(intent2.resolveActivity(getPackageManager()) != null){
+//                    if(ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
+//                        // Ovviamente dobbiamo andare nelle impostazioni di Android
+//                        // e garantire il permesso dell'uso del telefono alla nostra APP
+//                        startActivity(intent2);
+//                    }
+//                }else{
+//                    // TODO: gestire
+//                }
+
             }
+
+
         });
     }
 }
