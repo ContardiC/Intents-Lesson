@@ -1,26 +1,24 @@
 package it.spacecoding.intenttest;
 
-import static android.Manifest.permission.CALL_PHONE;
-
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    // IMPO: modificare AndroidManifest.xml
     Button btnSendSMS;
-    Button btnStarCall;
+    Button btnStartCall;
+    Button btnStartAlarm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,61 +30,60 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Inizializzazione dei pulsanti con findViewById
         btnSendSMS = findViewById(R.id.btnSendSMS);
-        btnStarCall = findViewById(R.id.btnStartCall);
+        btnStartCall = findViewById(R.id.btnStartCall);
+        btnStartAlarm = findViewById(R.id.btnStartAlarm);
+
         // SEND SMS
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("MainActivity", "SendSMS clicked");
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                // URI -> Uniform Resource Identifier
                 intent.setData(Uri.parse("sms:+39 324 1234567"));
 
                 // Per inserire un messaggio pre costruito
                 // intent.putExtra("sms_body","Ciao Gino, ti ricordo l'appuntamento di domani alle ore 13:30");
 
-
-
-                // controllo che esista un activity che può eseguire l'azione
-                if(intent.resolveActivity(getPackageManager()) != null){
+                if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                     Log.d("MainActivity", "Action avviata");
-                }else{
+                } else {
                     Log.d("MainActivity", "Action NON avviata");
                 }
-
             }
         });
-        // START CALL
-        // Aggiungere uses-permission e uses-feature
-        btnStarCall.setOnClickListener(new View.OnClickListener() {
 
+        // START CALL
+        btnStartCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel: +39 324 1234567"));
-                if(intent.resolveActivity(getPackageManager()) != null){
+                intent.setData(Uri.parse("tel:+39 324 1234567"));
+                if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
-                }else{
-                    // TODO: gestire
+                } else {
+                    Log.d("MainActivity", "App Telefono non trovata");
                 }
-                //  Per chiamare direttamente
-//                Intent intent2 = new Intent(Intent.ACTION_CALL);
-//                intent2.setData(Uri.parse("tel: +39 324 1234567"));
-//                if(intent2.resolveActivity(getPackageManager()) != null){
-//                    if(ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
-//                        // Ovviamente dobbiamo andare nelle impostazioni di Android
-//                        // e garantire il permesso dell'uso del telefono alla nostra APP
-//                        startActivity(intent2);
-//                    }
-//                }else{
-//                    // TODO: gestire
-//                }
-
             }
+        });
 
+        // START ALARM
+        btnStartAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Riunione con Nino e Gino");
+                intent.putExtra(AlarmClock.EXTRA_HOUR, 12);
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, 0);
 
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Log.d("MainActivity", "App Orologio/Sveglia non trovata");
+                }
+            }
         });
     }
 }

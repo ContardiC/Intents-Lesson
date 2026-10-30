@@ -25,6 +25,12 @@
             android:id="@+id/btnStartCall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btin_start_call_text" />
+            android:text="@string/btn_start_call_text" />
+        <Button
+            android:id="@+id/btnStartAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_start_alarm" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
