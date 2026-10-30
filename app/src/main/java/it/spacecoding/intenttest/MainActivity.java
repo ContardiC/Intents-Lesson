@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Log.d("MainActivity", "Action NON avviata");
                 }
+
             }
         });
     }
