@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 // URI -> Uniform Resource Identifier
                 intent.setData(Uri.parse("sms:+39 324 1234567"));
+
+                // Per inserire un messaggio pre costruito
+                // intent.putExtra("sms_body","Ciao Gino, ti ricordo l'appuntamento di domani alle ore 13:30");
+
+
+
                 // controllo che esista un activity che può eseguire l'azione
                 if(intent.resolveActivity(getPackageManager()) != null){
                     startActivity(intent);
